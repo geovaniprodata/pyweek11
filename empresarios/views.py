@@ -5,6 +5,7 @@ from django.contrib.messages import constants
 from .models import Empresas, Documento, Metricas
 from investidores.models import PropostaInvestimento
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 @login_required
@@ -61,7 +62,11 @@ def cadastrar_empresa(request):
 @login_required
 def listar_empresas(request):
     if request.method == 'GET':
+        empresa = request.GET.get('empresa')
         empresas = Empresas.objects.filter(user=request.user)
+        if empresa:
+            empresas = empresas.filter(nome__icontains=empresa)
+
         return render(request, 'listar_empresas.html', {"empresas" : empresas})
 
 @login_required
