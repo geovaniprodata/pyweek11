@@ -100,10 +100,12 @@ def add_doc(request, id):
 
     if extensao != 'pdf':
         messages.add_message(request, constants.ERROR, "Envie apenas PDF's")
+        return redirect(f'/empresarios/empresa/{id}')
+
 
     if not arquivo:
         messages.add_message(request, constants.ERROR, 'Envie um arquivo')
-        return redirect(f'empresarios/empresa/{id}')
+        return redirect(f'/empresarios/empresa/{id}')
 
     documento = Documento(
         empresa=empresa,
@@ -114,7 +116,7 @@ def add_doc(request, id):
     documento.save()
 
     messages.add_message(request, constants.SUCCESS, 'Arquivo cadastrado com sucesso.')
-    return redirect(f'empresarios/empresa/{id}')
+    return redirect(f'/empresarios/empresa/{id}')
 
 @login_required
 def excluir_doc(request, id):

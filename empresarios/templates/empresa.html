@@ -40,7 +40,7 @@
                     <a href="#" class="sub-fonte">Ver investidores</a>
                 </div>
                 <div class="col-md">
-                    <h2 class="titulo2">R$ {{ total_captado|intcomma }} Captados</h2>
+                    <h2 class="titulo2">R$ {{ total_captado|stringformat:'0.2f'|intcomma }} Captados</h2>
                 </div>
             </div>
             <hr>
@@ -62,9 +62,9 @@
 
                 <div class="col-md">
                     <h5>Valuation</h5>
-                    <span class="sub-fonte">Atual: R$ {{ valuation_atual|intcomma }}</span>
+                    <span class="sub-fonte">Atual: R$ {{ valuation_atual|stringformat:'0.2f'|intcomma }}</span>
                     <br>
-                    <span class="sub-fonte">Esperado: R$ {{ empresa.valuation|intcomma }}</span>
+                    <span class="sub-fonte">Esperado: R$ {{ empresa.valuation|stringformat:'0.2f'|intcomma }}</span>
                 </div>
 
                 <div class="documentos">
@@ -137,6 +137,10 @@
             <h3>Solicitações de investimentos</h3>
             <hr>
             <br>
+
+            {% if not pi_enviadas %}
+            <p>Nenhuma solitação até o momento.</p>
+            {% endif %}
 
 
             {% for pi in pi_enviadas %}

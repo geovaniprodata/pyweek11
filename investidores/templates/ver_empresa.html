@@ -51,7 +51,7 @@
             <p>{{empresa.descricao}}</p>
             <div class="col-md">
                 <h5>Valuation esperado</h5>
-                <span class="sub-fonte">Esperado: R$ {{empresa.valuation|intcomma}}</span>
+                <span class="sub-fonte">Esperado: R$ {{empresa.valuation|stringformat:'0.2f'|intcomma}}</span>
                 <br>
                 <br>
                 <h5>Percentual</h5>
@@ -65,6 +65,10 @@
             <h4 style="color: #92D5EB">Indicadores |</h4>
 
             <div class="row">
+                {% if not metricas%}
+                <p>Nenhuma métrica cadastrada.</p>
+                {% endif %}
+
                 {% for metrica in metricas %}
                 <div class="col-md-3 p-3">
                     <div class="dark-color" style="padding: 20px; text-align: center;">

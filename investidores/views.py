@@ -5,6 +5,7 @@ from .models import PropostaInvestimento
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 
@@ -23,7 +24,7 @@ def sugestao(request):
         elif tipo == 'D':
             empresas = Empresas.objects.filter(tempo_existencia__in=['-6', '+6', '+1']).exclude(estagio='E')
         elif tipo == 'M': # TODO : Tipo genérico
-            empresas = Empresas.objects.filter(tempo_existencia__in=['-6', '6+']).exclude(estagio__in=['E', 'MVVP'])
+            empresas = Empresas.objects.filter(~Q(tempo_existencia='+5'), ~Q(tempo_existencia__in=['-6', '+6', '+1'])).exclude(estagio='E')
 
         empresas = empresas.filter(area__in=area)
 
